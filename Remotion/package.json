@@ -1,0 +1,32 @@
+{
+  "name": "gravity-series-mograph",
+  "version": "1.0.0",
+  "description": "Motion graphics for the UE5 Gravity Series — Kurzgesagt-inspired smooth 3D with flat vector-look shading",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render ThreeAxisExplainer out/part1-axes.mp4",
+    "render:prores": "remotion render ThreeAxisExplainer out/part1-axes.mov --codec=prores",
+    "render:png": "remotion render ThreeAxisExplainer out/part1/ --image-format=png --codec=png",
+    "still": "remotion still ThreeAxisExplainer out/still.png",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.18.0",
+    "@react-three/postprocessing": "^2.19.1",
+    "@remotion/cli": "^4.0.523",
+    "@remotion/three": "^4.0.523",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.523",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@types/three": "^0.185.4",
+    "typescript": "^7.0.2"
+  }
+}
