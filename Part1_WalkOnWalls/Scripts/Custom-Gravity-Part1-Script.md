@@ -295,7 +295,7 @@ caption text  #ffffff
 
 ### Project structure
 ```
-remotion-gravity-mograph/
+Remotion/
 ├─ package.json
 ├─ remotion.config.ts
 └─ src/

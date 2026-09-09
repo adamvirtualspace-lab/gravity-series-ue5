@@ -5,7 +5,7 @@ node_modules/
 
 # ---- Build / Remotion output ----
 out/
-remotion/out/
+Remotion/out/
 build/
 dist/
 .remotion/
