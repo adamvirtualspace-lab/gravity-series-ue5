@@ -14,20 +14,31 @@ The core trick, in one line: **three pivots for three axes** (up · yaw · pitch
 
 ## What's in here
 
+One folder per part. Each part owns its script and its own art refs; the Remotion
+project is shared across the series so components (`AxisGizmo`) get reused.
+
 ```
-ue5-gravity-series/
-├─ scripts/        Production scripts + storyboards (.md), one per part
-├─ remotion/       Motion graphics — Kurzgesagt-inspired, rendered 3D low-poly
-├─ assets/         Shared style frames & small art refs (no video renders)
+gravity-series-ue5/
+├─ Part1_WalkOnWalls/
+│  └─ Scripts/       Production script + storyboard (.md)
+├─ Part2_PlanetGravity/       (planned)
+├─ Part3_MultiPlanet/         (planned)
+├─ Remotion/         Motion graphics — Kurzgesagt-inspired, smooth 3D, flat vector-look shading (planned)
 └─ README.md
 ```
 
+**Current state:** the Part 1 script is written. The Remotion project isn't
+scaffolded yet — its full structure, `AxisGizmo` prop contract, and beat sheet
+are specified in Appendices A–C of the Part 1 script, which is the spec to build from.
+
 ## Motion graphics (Remotion)
 
-Explainer animations built with [Remotion](https://www.remotion.dev/) + `@remotion/three` (react-three-fiber), styled as **3D low-poly** with a deep-space palette and soft bloom. The `AxisGizmo` component is prop-driven so Parts 1–3 reuse it (flat surface → sphere → multi-planet).
+Explainer animations built with [Remotion](https://www.remotion.dev/) + `@remotion/three` (react-three-fiber), styled as **smooth 3D with flat vector-look shading** with a deep-space palette and soft bloom. The `AxisGizmo` component is prop-driven so Parts 1–3 reuse it (flat surface → sphere → multi-planet).
+
+Not scaffolded yet — the commands below are the intended workflow once `Remotion/` exists.
 
 ```bash
-cd remotion
+cd Remotion
 npm install
 npm run studio        # live preview
 ```
@@ -45,7 +56,7 @@ npx remotion render ThreeAxisExplainer out/part1-axes.mov --codec=prores
 npx remotion render ThreeAxisExplainer out/part1/ --image-format=png --codec=png
 ```
 
-Renders land in `remotion/out/` and are **git-ignored** — video files stay out of the repo.
+Renders land in `Remotion/out/` and are **git-ignored** — video files stay out of the repo.
 
 ## Stack
 
@@ -55,8 +66,9 @@ Renders land in `remotion/out/` and are **git-ignored** — video files stay out
 
 ## Working in the cloud
 
-The `remotion/` project is plain Node + TypeScript, so it runs cleanly in a Claude Code cloud session — install, iterate, and render on the VM, then pull the result down. Push your branch first; cloud sessions clone from the GitHub remote, not your local checkout.
+The `Remotion/` project is plain Node + TypeScript, so it runs cleanly in a Claude Code cloud session — install, iterate, and render on the VM, then pull the result down. Push your branch first; cloud sessions clone from the GitHub remote, not your local checkout.
 
 ## License
 
-_TBD — e.g. MIT for the code; keep footage/audio rights separate._
+Code and scripts in this repo are [MIT licensed](LICENSE). Rendered video, footage,
+and audio for the series are **not** covered by that license — those rights are held separately.
