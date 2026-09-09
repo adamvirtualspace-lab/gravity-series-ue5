@@ -23,7 +23,7 @@ gravity-series-ue5/
 │  └─ Scripts/       Production script + storyboard (.md)
 ├─ Part2_PlanetGravity/       (planned)
 ├─ Part3_MultiPlanet/         (planned)
-├─ Remotion/         Motion graphics — Kurzgesagt-inspired, rendered 3D low-poly (planned)
+├─ Remotion/         Motion graphics — Kurzgesagt-inspired, smooth 3D, flat vector-look shading (planned)
 └─ README.md
 ```
 
@@ -33,7 +33,7 @@ are specified in Appendices A–C of the Part 1 script, which is the spec to bui
 
 ## Motion graphics (Remotion)
 
-Explainer animations built with [Remotion](https://www.remotion.dev/) + `@remotion/three` (react-three-fiber), styled as **3D low-poly** with a deep-space palette and soft bloom. The `AxisGizmo` component is prop-driven so Parts 1–3 reuse it (flat surface → sphere → multi-planet).
+Explainer animations built with [Remotion](https://www.remotion.dev/) + `@remotion/three` (react-three-fiber), styled as **smooth 3D with flat vector-look shading** with a deep-space palette and soft bloom. The `AxisGizmo` component is prop-driven so Parts 1–3 reuse it (flat surface → sphere → multi-planet).
 
 Not scaffolded yet — the commands below are the intended workflow once `Remotion/` exists.
 

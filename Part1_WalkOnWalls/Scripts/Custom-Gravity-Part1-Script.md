@@ -1,5 +1,5 @@
 # UE5 Custom Gravity in 100% Blueprints — Part 1
-### Bite-size tutorial · storyboard · "why it works" · Kurzgesagt-style 3D low-poly motion graphics
+### Bite-size tutorial · storyboard · "why it works" · Kurzgesagt-style smooth-3D motion graphics
 
 > **Rewrite goals**
 > 1. **Teach the model first, the clicks second** — every concept gets a *why* before any node is placed.
@@ -7,7 +7,7 @@
 >    ✅ **CHECKPOINT** (a testable state). A viewer can't drift past a broken build, which kills the
 >    "followed blindly, then it broke" problem.
 > 3. **Signature motion graphics** — concept beats are stylized inserts: *Kurzgesagt-inspired, rendered in
->    3D low-poly* (see Appendix A). Flagship is the 30s "Three Axes" piece; the rest are short stingers.
+>    smooth 3D with flat vector-look shading* (see Appendix A). Flagship is the 30s "Three Axes" piece; the rest are short stingers.
 
 **Format key**
 - 🎬 **SCREEN** — what's on screen / screen-record direction
@@ -16,7 +16,7 @@
 - 💡 **WHY** — the mental model (say it out loud)
 - ⚠️ **MISS-RISK** — the step people skip that breaks everything
 - ✅ **CHECKPOINT** — "press play, you should see X" gate before the next chunk
-- 🎨 **MOGRAPH** — a stylized 3D low-poly insert (not a screencast)
+- 🎨 **MOGRAPH** — a stylized smooth-3D insert (not a screencast)
 
 ---
 
@@ -81,7 +81,7 @@
 
 ⚠️ **MISS-RISK #1 — Default Pawn Class.** Forget this and you're still playing the old character; *nothing* here shows up. Hold on the Game Mode dropdown 2s.
 
-🎨 **MOGRAPH (stinger, ~8s): "Gravity is a vector, not a rotation."** A low-poly astronaut on a slab; a red arrow labeled `(0, −1, 0)` swings from pointing down to pointing sideways; the slab's "down" follows, but a little camera icon stays stubbornly upright. Caption: *"Gravity moved. The camera didn't."*
+🎨 **MOGRAPH (stinger, ~8s): "Gravity is a vector, not a rotation."** A smooth-shaded astronaut on a slab; a red arrow labeled `(0, −1, 0)` swings from pointing down to pointing sideways; the slab's "down" follows, but a little camera icon stays stubbornly upright. Caption: *"Gravity moved. The camera didn't."*
 
 ✅ **CHECKPOINT:** Press G — the character sticks to the wall's pull, but the camera is clearly wrong. That wrongness is the whole problem we now solve.
 
@@ -209,28 +209,53 @@
 ---
 
 # APPENDIX A — 🎨 Art Direction
-## Kurzgesagt-inspired, rendered in 3D low-poly
+## Kurzgesagt-inspired: smooth 3D geometry, flat vector-look shading
 
-**The idea:** borrow Kurzgesagt's *feeling* — deep-space calm, glowing neon, buoyant friendly motion, a cute mascot for warmth — but express it in **faceted 3D low-poly** instead of their flat 2D vector birds. This becomes the visual signature across Parts 1–3.
+**The idea:** borrow Kurzgesagt's *feeling* — deep-space calm, glowing neon, buoyant friendly
+motion, a cute mascot for warmth — and match their **smooth, rounded, flat-colour vector look**,
+but build it from **real 3D geometry**. The geometry is genuinely 3D so rotations are honest
+(essential for the flagship "Three Axes" piece, which has to *show* that one axis can't lock an
+orientation). The *shading* is what reads as flat 2D.
 
-**Keep your own IP:** use an **original low-poly astronaut mascot** (ties into the budget-Star-Citizen series) — *not* Kurzgesagt's ducks/birds. Inspiration, not imitation.
+**No faceted low-poly.** Hard edges force vertex splitting — a vertex on a hard edge is duplicated
+once per face normal, so a flat-shaded cube needs 24 verts instead of 8. It costs more and, more
+importantly, it doesn't look like Kurzgesagt. Everything is smooth-shaded.
+
+**Keep your own IP:** an **original astronaut mascot** (ties into the budget-Star-Citizen series)
+— *not* Kurzgesagt's ducks/birds. Inspiration, not imitation.
 
 ### Borrow from Kurzgesagt
-- Deep navy/indigo space background with a soft **radial glow** behind the subject.
-- **Limited, hyper-saturated neon palette** per scene (3–5 hero colors, no muddy mid-tones).
+- Deep navy/near-black space background with a soft **radial glow** behind the subject.
+- **Limited, hyper-saturated neon palette** per scene (3–5 hero colours, no muddy mid-tones).
 - Everything hero **emits/glows** (bloom). Lots of tiny floating dots, bokeh, drifting particles.
 - **Rounded, chunky, friendly** silhouettes — nothing sharp or gritty.
 - Big, bold, high-contrast **white sans-serif** captions.
-- **Buoyant motion:** gentle floating idles, scale-pop entrances with a touch of overshoot, slow eases. Never snappy/harsh.
+- **Buoyant motion:** gentle floating idles, scale-pop entrances with a touch of overshoot, slow
+  eases. Never snappy/harsh.
 - Visual metaphors made literal and a little charming.
 
-### Translate to 3D low-poly
-- **Geometry:** low-poly primitives, **flat-shaded** (`flatShading: true`), but keep rounded silhouettes (icospheres, chamfered boxes) so it reads friendly, not brutalist.
-- **Shading:** either **MeshToonMaterial** (cel bands) or **MeshStandardMaterial** with low roughness + strong **emissive** on hero objects. Add a **rim/fresnel light** so edges pop against the dark bg — that halo is very Kurzgesagt.
-- **Post-processing (the glue):** **UnrealBloom** for the glow; subtle **vignette**; a hint of DOF for bokeh. Keep it clean — no film grain, minimal chromatic aberration.
-- **Particles:** floating low-poly dots / soft stars with parallax.
+### Translate to smooth 3D
+- **Geometry:** rounded primitives — capsules, spheres, tori, rounded boxes. Smooth normals
+  (`flatShading: false`, the default). Weld/merge vertices; no visible facets anywhere. Bump
+  segment counts until silhouettes read as clean curves.
+- **Shading — this is what sells the flat look.** Prefer **`MeshBasicMaterial`** (pure unlit flat
+  colour, exactly like vector fill) or **`MeshToonMaterial` with a 2-step `gradientMap`** for a
+  single hard terminator. Either way: **no specular, no roughness gradients, no soft falloff.** A
+  standard PBR material with smooth normals produces a soft gradient across every surface — that
+  is the "realistic render" look we are explicitly avoiding.
+- **Separation without lighting:** since flat fills carry no shading cues, separate forms by
+  **colour blocking** (adjacent shapes get distinct hues) and an optional **fresnel rim glow**
+  (thin emissive halo at grazing angles). Do NOT reach for a specular highlight — that reads 3D.
+- **Post-processing (the glue):** **UnrealBloom** for the glow; subtle **vignette**; a hint of DOF
+  for bokeh. Keep it clean — no film grain, minimal chromatic aberration.
+- **Particles:** floating smooth dots / soft stars with parallax.
 
-### Palette tokens (maps to the rig's axis colors on a Kurzgesagt-y navy)
+### Proportions (important — must match the footage)
+The mascot is **realistic adult proportions, ~7 to 7.5 heads tall**, matching the **UE5 Mannequin**
+seen in the screen capture. **Not chibi.** A 4-heads-tall mascot reads as a different character
+from the one the viewer is watching on screen, which defeats the point of the insert.
+
+### Palette tokens (maps to the rig's axis colours on a Kurzgesagt-y navy)
 ```
 bg / space    #0b0d2a  (radial glow → #171a4a center)
 UP axis       #ffffff  (cyan-white glow)
@@ -241,19 +266,24 @@ accents       #a855f7 purple · #22d3ee teal   (the Kurzgesagt neon duo)
 caption text  #ffffff
 ```
 
+### Reference
+`../Assets/astronaut-mascot-styleframe.png` — proportions and palette reference. **Note:** that
+frame is faceted low-poly, from the earlier direction. Read it for *proportion and colour only*;
+the shading is superseded by this appendix.
+
 ---
 
 # APPENDIX B — 🎬 Motion Graphics Beat Sheet
 ## Flagship: "Why Three Axes to Aim a Camera" (~30s)
 
 **Where:** Act 2 concept beat (~1:53). Beat 8 reused at Chunk 11.
-**Style:** Appendix A (Kurzgesagt-inspired 3D low-poly). Mascot = your low-poly astronaut.
+**Style:** Appendix A (Kurzgesagt-inspired smooth 3D, flat-look shading). Mascot = your astronaut.
 **VO:** the Act-2 narration — animate *to* it.
 
 | # | On screen | Animation | Caption |
 |---|-----------|-----------|---------|
-| 1 | Astronaut on a low-poly slab in space; one **white UP arrow** rises | scale-pop + gentle bob | *"'Up' tells you which way is up…"* |
-| 2 | Low-poly camera prop orbits the up arrow | free 360° orbit | *"…but you can still spin. One axis can't aim a camera."* |
+| 1 | Astronaut on a smooth slab in space; one **white UP arrow** rises | scale-pop + gentle bob | *"'Up' tells you which way is up…"* |
+| 2 | Smooth camera prop orbits the up arrow | free 360° orbit | *"…but you can still spin. One axis can't aim a camera."* |
 | 3 | **Blue RIGHT arrow** snaps in ⟂ | orbit freezes as it locks | *"A 2nd axis locks left/right — yaw."* |
 | 4 | **Green FORWARD arrow** snaps in; 3-axis gizmo forms | camera tilts up/down | *"A 3rd gives up/down — pitch. 3 axes = 1 orientation."* |
 | 5 | Cut to the UE rig: 3 nested arrows | staggered emissive highlight (white→blue→green) | *"1 pivot · 1 axis · 1 job"* |
@@ -271,7 +301,7 @@ caption text  #ffffff
 
 # APPENDIX C — 🛠️ Remotion Production Plan
 
-**Approach:** **`@remotion/three`** (real 3D via react-three-fiber) + **`@react-three/postprocessing`** for the Kurzgesagt bloom. The concept is spatial — real 3D *shows* "one axis can't lock an orientation" instead of asserting it. Low-poly keeps render times sane.
+**Approach:** **`@remotion/three`** (real 3D via react-three-fiber) + **`@react-three/postprocessing`** for the Kurzgesagt bloom. The concept is spatial — real 3D *shows* "one axis can't lock an orientation" instead of asserting it. Smooth primitives with modest segment counts keep render times sane.
 
 **Why Remotion for a series:** frame-accurate; components + props reuse across Part 1/2/3 (flat wall → sphere → multi-planet is a prop change); tokens set your palette once; renders to MP4 / ProRes / transparent PNG for overlay.
 
@@ -305,10 +335,10 @@ Remotion/
    ├─ Scene3D.tsx              # <ThreeCanvas> + lights + rim light + <EffectComposer>(Bloom, Vignette)
    ├─ components/
    │  ├─ AxisGizmo.tsx         # ★ reusable up/right/forward rig (props-driven)
-   │  ├─ Arrow3D.tsx           # low-poly arrow (cylinder shaft + cone), flatShading, emissive
-   │  ├─ Astronaut.tsx         # original low-poly mascot (Float idle)
+   │  ├─ Arrow3D.tsx           # smooth arrow (capsule shaft + cone), MeshBasic/toon, emissive
+   │  ├─ Astronaut.tsx         # original smooth-shaded mascot (Float idle)
    │  ├─ CameraProp.tsx        # the orbiting camera object
-   │  ├─ SpaceBackdrop.tsx     # navy radial gradient + low-poly star particles
+   │  ├─ SpaceBackdrop.tsx     # navy radial gradient + smooth star particles
    │  └─ Caption.tsx           # bold white lower-third, opacity per beat
    └─ beats/                   # optional: one file per beat
 ```
@@ -340,7 +370,7 @@ npx remotion render ThreeAxisExplainer out/part1/ --image-format=png --codec=png
 
 ### Build order
 1. `theme.ts` + `Scene3D` (canvas, rim light, bloom) — get one glowing frame.
-2. `Arrow3D` → `AxisGizmo` (static) — the reusable heart, low-poly + emissive.
+2. `Arrow3D` → `AxisGizmo` (static) — the reusable heart, smooth + emissive.
 3. `SpaceBackdrop` + `Astronaut` + `CameraProp`.
 4. Beats 1–4 (the core argument) — confirm it reads before building the rest.
 5. Beats 5–9, then `Caption` pass + timing to the VO.
