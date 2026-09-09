@@ -1,0 +1,47 @@
+# ---- Dependencies ----
+node_modules/
+.pnp
+.pnp.*
+
+# ---- Build / Remotion output ----
+out/
+remotion/out/
+build/
+dist/
+.remotion/
+*.tsbuildinfo
+
+# ---- Rendered video (never commit — use Releases/LFS if you must) ----
+*.mp4
+*.mov
+*.webm
+*.mkv
+# NOTE: image files are NOT ignored, so assets/*.png style frames commit fine.
+# PNG sequences render into out/ above, which IS ignored.
+
+# ---- Environment ----
+.env
+.env.*
+!.env.example
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# ---- Caches ----
+.cache/
+.turbo/
+.parcel-cache/
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- OS junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
