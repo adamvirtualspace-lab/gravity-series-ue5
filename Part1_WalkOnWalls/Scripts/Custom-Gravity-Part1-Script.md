@@ -78,15 +78,22 @@ Third-person from behind, matching the in-game camera so the planned composition
 and the real capture line up. These frames carry the **approved brand mascot**
 (cream helmet, orange-red rim, violet suit).
 
-> **Known issue in frame 2:** the dashed motion arc reads ambiguously — its
-> arrowhead sits at the bottom, which can scan as *sideways → down* rather than
-> *down → sideways*. The animation defines the true direction, so this does not
-> block the edit, but do not copy the arc's arrowhead placement literally.
+**Frame 2 carries the rotation diagram**, and its three parts are deliberate —
+reproduce this convention in the mograph:
+
+| | |
+|---|---|
+| **Faded** dark-magenta arrow, pointing down | where gravity *was* |
+| **Dashed arc**, sweeping up and right, blunt at its lower end | the rotation itself |
+| **Bold** bright-magenta arrow, pointing at the wall | where gravity *is now* |
+
+Only the destination arrow carries an arrowhead. That is what forces the beat to
+read *down → sideways* and never the reverse.
 
 | 1 · Standing on the floor | 2 · Gravity flips | 3 · Walking on the wall |
 |:--:|:--:|:--:|
 | ![Astronaut from behind on a floor platform, magenta gravity arrow pointing down](../Assets/storyboard/01-floor-gravity-down.png) | ![Astronaut mid-rotation, magenta arrow swinging from down to sideways along a dashed arc](../Assets/storyboard/02-gravity-flips.png) | ![Astronaut upright walking away, the original floor now a vertical wall on the left](../Assets/storyboard/03-walking-on-wall.png) |
-| Gravity is `(0, 0, −1)`. Everything is ordinary — establish "normal" before breaking it. | **Press G.** Gravity rotates to `(0, −1, 0)`. The dashed arc is the whole idea: gravity is a *vector being rotated*, not a teleport. | Gravity is `(0, −1, 0)` and the camera has rotated with him, so **he** is upright and the *world* turned. |
+| Gravity is `(0, 0, −1)`. Everything is ordinary — establish "normal" before breaking it. | **Press G.** Gravity rotates to `(0, −1, 0)`. Faded arrow = the old down; bold arrow = the new one; the dashed arc is the whole idea — gravity is a *vector being rotated*, not a teleport. | Gravity is `(0, −1, 0)` and the camera has rotated with him, so **he** is upright and the *world* turned. |
 
 > **Note for the edit:** frames 1 and 3 are almost the same composition — and that
 > is the point. From the character's own frame of reference nothing changed; the
