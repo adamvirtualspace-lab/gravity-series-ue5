@@ -17,6 +17,7 @@
 - ⚠️ **MISS-RISK** — the step people skip that breaks everything
 - ✅ **CHECKPOINT** — "press play, you should see X" gate before the next chunk
 - 🎨 **MOGRAPH** — a stylized smooth-3D insert (not a screencast)
+- 🎞️ **STORYBOARD** — a reference frame in `../Assets/storyboard/`
 
 ---
 
@@ -60,6 +61,23 @@
 
 🅣 `CUSTOM GRAVITY — 100% BLUEPRINTS` → `Part 1: Character & Camera`
 
+### 🎞️ Storyboard — the cold open, shot for shot
+
+Third-person from behind, matching the in-game camera. Style reference for the
+mograph inserts; also the shot list for the demo capture.
+
+| 1 · Standing on the floor | 2 · Gravity flips | 3 · Walking on the wall |
+|:--:|:--:|:--:|
+| ![Astronaut from behind on a floor platform, magenta gravity arrow pointing down](../Assets/storyboard/01-floor-gravity-down.png) | ![Astronaut mid-rotation, magenta arrow swinging from down to sideways along a dashed arc](../Assets/storyboard/02-gravity-flips.png) | ![Astronaut upright walking away, the original floor now a vertical wall on the left](../Assets/storyboard/03-walking-on-wall.png) |
+| Gravity is `(0, 0, −1)`. Everything is ordinary — establish "normal" before breaking it. | **Press G.** Gravity rotates to `(0, −1, 0)`. The dashed arc is the whole idea: gravity is a *vector being rotated*, not a teleport. | Gravity is `(0, −1, 0)` and the camera has rotated with him, so **he** is upright and the *world* turned. |
+
+> **Note for the edit:** frames 1 and 3 are almost the same composition — and that
+> is the point. From the character's own frame of reference nothing changed; the
+> world rotated around him. A still can't sell that, so **frame 2 does the work**:
+> hold on the rotation long enough for the arc to register, and let the camera
+> visibly travel with him rather than cutting.
+
+
 ## Why every tutorial says "use C++" · ~0:12–1:04
 🎬 **SCREEN:** UE **Custom Gravity (5.4)** docs, the C++ community tutorial (credit "Pro"), a flash of Visual Studio.
 🎙️ **VO:**
@@ -80,6 +98,8 @@
 🎙️ **VO:** "Set Gravity Direction, split the pin, Y to minus one — down now points along minus-Y. Fire it off the G key. Then set this as the Default Pawn Class. Play, press G… gravity flips. But the camera didn't."
 
 ⚠️ **MISS-RISK #1 — Default Pawn Class.** Forget this and you're still playing the old character; *nothing* here shows up. Hold on the Game Mode dropdown 2s.
+
+🎞️ **Storyboard ref:** [frame 2 — gravity flips](../Assets/storyboard/02-gravity-flips.png). Same moment, except here the camera does *not* follow — that is the bug this chunk deliberately creates.
 
 🎨 **MOGRAPH (stinger, ~8s): "Gravity is a vector, not a rotation."** A smooth-shaded astronaut on a slab; a red arrow labeled `(0, −1, 0)` swings from pointing down to pointing sideways; the slab's "down" follows, but a little camera icon stays stubbornly upright. Caption: *"Gravity moved. The camera didn't."*
 
