@@ -2,9 +2,9 @@
 
 > **Two frames live here.** `astronaut-mascot-styleframe.png` is what Part 1
 > currently renders and remains the reference for it.
-> `astronaut-mascot-armored-styleframe.png` is the approved brand direction for
+> `astronaut-mascot-brand-styleframe.png` is the approved brand direction for
 > the mascot going forward. Nothing in `Remotion/` has been changed to match the
-> armored frame yet — porting it is a separate, deliberate step.
+> brand frame yet — porting it is a separate, deliberate step.
 
 ## `astronaut-mascot-styleframe.png`
 
@@ -70,51 +70,56 @@ smooth-but-glossy Flux frame, and a white-suited flat-vector frame.
 
 ---
 
-## `astronaut-mascot-armored-styleframe.png`
+## `astronaut-mascot-brand-styleframe.png`
 
-The **approved mascot direction**, locked after a five-pass iteration. Same
-tooling as above (Comfy Cloud, **gpt-image-2**), but generated as an image edit
-with earlier passes fed back in as references, so the versions interpolate
-rather than re-roll. 1024×1536 portrait.
+The **approved mascot direction**. Same tooling as above (Comfy Cloud,
+**gpt-image-2**), but generated as an image edit with earlier passes fed back in
+as references, so the versions interpolate rather than re-roll. 1024×1536
+portrait.
 
 Two things drove it:
 
-1. **Channel identity.** The helmet now quotes the `@AdamsVirtualSpace` YouTube
+1. **Channel identity.** The helmet quotes the `@AdamsVirtualSpace` YouTube
    avatar — rounded cream shell, thick orange-red rim, dark-teal visor with a
    small ringed green planet in it. The mascot and the channel now read as one
    brand.
-2. **A harder-edged silhouette.** Segmented hard-surface armour plating —
-   pauldrons, articulated elbow and knee joints, layered shin and abdomen plates
-   — over the original suit's proportions.
+2. **A firmer silhouette.** A slimmer waist and longer legs than the original
+   frame, with light plate segmentation on the shoulders, thighs and shins and
+   thin amber seam lines — enough hard-surface structure to feel deliberate,
+   without becoming armour.
 
 ### What the iteration settled
 
-The pass sequence was: colour merge → full hard-surface exosuit → 50/50 →
-**65/35 armoured (this frame)** → slim armoured. 65/35 was chosen over the
-leaner variant deliberately: trimming the shoulders and lengthening the legs
-made the figure read as *equipment* rather than as a *character*, and the round
-helmet started to look oversized against the narrower frame. The extra bulk here
-is what keeps him a mascot.
+The pass sequence was: colour merge → full hard-surface exosuit → **this frame
+(50/50)** → 65/35 armoured → slim armoured.
 
-Kept soft on purpose, and worth protecting in any future pass: rounded plate
-corners, the dome helmet, and the chest-panel / strap / buckle kit.
+The two armoured passes were built and rejected. Heavier plating made the figure
+read as *equipment* rather than as a *character*, and the leanest pass made the
+round helmet look oversized against the narrowed shoulders. This frame keeps the
+suit legible as a suit: rounded plate shapes, the friendly dome helmet, and the
+full chest-panel / strap / buckle kit intact.
+
+**The mascot stays a mascot.** That is the constraint any future pass has to
+clear — added detail must not cost the character read. Note that the arms here
+are deliberately smooth; the armoured passes segmented them, and that is
+available in git history if the direction is ever revisited.
 
 ### Measured palette
 
 Sampled from the PNG (octree-quantised), not from the prompt:
 
 ```
-#00011b   79.6%   background — near-black space
-#2a0998    6.4%   armour shadow — deep violet
-#6a34dc    5.5%   armour primary — violet
-#150568    3.3%   undersuit — deepest violet (joints, midsection)
-#e74a15    1.9%   chest panel + straps — orange-red   ★ channel accent
-#f9e9d5    0.8%   helmet shell — cream
-#01a0f1    0.6%   hoses, wrist + knee bands — sky blue
-#f6a80a    0.5%   buckles + seam lines — amber
-#8b58eb    0.5%   highlight plates — periwinkle
-#78ae3a    0.2%   visor planet — lime green
-#04e0eb    0.1%   visor planet ring — teal
+#00011a   77.8%   background — near-black space
+#330ca5   10.1%   suit primary — deep violet
+#1c0670    2.9%   suit shadow — deepest violet
+#8243e7    2.3%   highlight panels — periwinkle
+#ea4a18    1.9%   chest panel + straps — orange-red   ★ channel accent
+#7336de    1.3%   suit mid violet
+#07a1ef    0.9%   hoses, wrist + knee bands — sky blue
+#f9e8d1    0.8%   helmet shell — cream
+#f8a90c    0.5%   buckles + seam lines — amber
+#76b03b    0.2%   visor planet — lime green
+#0bd7ea    0.1%   visor planet ring — teal
 ```
 
 ### ⚠️ Why the limb accents are amber, not cyan
