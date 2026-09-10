@@ -32,7 +32,7 @@ export const CameraProp: React.FC<CameraPropProps> = ({
       {/* glowing lens element */}
       <mesh position={[0, 0, 0.31]} rotation={[Math.PI / 2, 0, 0]}>
         <cylinderGeometry args={[0.07, 0.07, 0.02, 20]} />
-        <meshBasicMaterial color={palette.hose} toneMapped={false} />
+        <meshBasicMaterial color={palette.band} toneMapped={false} />
       </mesh>
     </group>
   );

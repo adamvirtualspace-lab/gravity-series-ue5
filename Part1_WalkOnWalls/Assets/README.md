@@ -1,19 +1,19 @@
 # Part 1 — Art references
 
-> **Two frames live here.** `astronaut-mascot-styleframe.png` is what Part 1
-> currently renders and remains the reference for it.
-> `astronaut-mascot-brand-styleframe.png` is the approved brand direction for
-> the mascot going forward. Nothing in `Remotion/` has been changed to match the
-> brand frame yet — porting it is a separate, deliberate step.
+> **`astronaut-mascot-brand-styleframe.png` is the live mascot.** It is now
+> carried into `Remotion/src/components/Astronaut.tsx` and the `palette` tokens
+> in `Remotion/src/theme.ts`, and the storyboard frames were regenerated to
+> match it. `astronaut-mascot-styleframe.png` is the superseded amber-visor
+> frame, kept for history — do not build against it.
 
-## `astronaut-mascot-styleframe.png`
+## `astronaut-mascot-styleframe.png` (superseded)
 
-The canonical mascot style frame. Generated on Comfy Cloud with **gpt-image-2**
+The earlier mascot style frame, kept for history. Generated on Comfy Cloud with **gpt-image-2**
 (`partner_generate` → `openai/images-generations`, variant in `params.model`),
 from the Appendix A art direction in
 `../Scripts/Custom-Gravity-Part1-Script.md`. 1024×1536 portrait.
 
-**This frame is on-spec — treat it as the target.**
+**Superseded by the brand frame below.** Its proportion and shading notes still hold.
 
 - **Shading:** true flat vector. Solid uniform colour fills, no gradients, no
   specular, no PBR. Shadows are single hard-edged shapes of a darker flat
@@ -139,9 +139,14 @@ stay confined to the visor emblem** — they are the nearest neighbours to
 This is the same caution as deviation 2 above, and it survived contact with a
 real frame: the warm accents are safe, the cool ones are spoken for.
 
-### Not yet carried into code
+### Carried into code
 
-`Remotion/src/components/Astronaut.tsx` and the `palette` tokens in
-`Remotion/src/theme.ts` still describe the original amber-visor suit. Porting
-this frame means adding the channel tokens and rebuilding the helmet, and is
-tracked separately from Part 1's current render.
+`Remotion/src/theme.ts` now holds the channel tokens (`helmetRim`, `panel`,
+`buckle`, `band`, and the visor-emblem trio), and
+`Remotion/src/components/Astronaut.tsx` was rebuilt around them: cream dome with
+the orange-red rim torus, dark visor carrying the ringed planet, slim waist,
+long legs, periwinkle plates on shoulders/thighs/shins, amber seams, and
+sky-blue rings at wrists and knees.
+
+The teal/lime constraint above is enforced in the component: those two colours
+appear only inside the visor emblem group, and the comment there says why.

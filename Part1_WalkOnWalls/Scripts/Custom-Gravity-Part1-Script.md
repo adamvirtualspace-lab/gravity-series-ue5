@@ -75,7 +75,13 @@ Use them for **two** things:
    astronaut actually appears on screen.
 
 Third-person from behind, matching the in-game camera so the planned composition
-and the real capture line up.
+and the real capture line up. These frames carry the **approved brand mascot**
+(cream helmet, orange-red rim, violet suit).
+
+> **Known issue in frame 2:** the dashed motion arc reads ambiguously — its
+> arrowhead sits at the bottom, which can scan as *sideways → down* rather than
+> *down → sideways*. The animation defines the true direction, so this does not
+> block the edit, but do not copy the arc's arrowhead placement literally.
 
 | 1 · Standing on the floor | 2 · Gravity flips | 3 · Walking on the wall |
 |:--:|:--:|:--:|
@@ -291,21 +297,50 @@ live UE5 capture (Manny) and stylized mograph (the violet astronaut). The viewer
 read them as one body doing one thing. Silhouette and proportion are what carry that;
 the colours and shading are free to differ.
 
-### Palette tokens (maps to the rig's axis colours on a Kurzgesagt-y navy)
+### Palette tokens
+
+Measured from `../Assets/astronaut-mascot-brand-styleframe.png`. Mirrored in
+`Remotion/src/theme.ts`.
+
 ```
-bg / space    #0b0d2a  (radial glow → #171a4a center)
-UP axis       #ffffff  (cyan-white glow)
-LR / yaw      #38bdf8  (neon blue)
-UD / pitch    #4ade80  (neon green)
-gravity       #e935c1  (neon magenta — reads better than red on navy)
-accents       #a855f7 purple · #22d3ee teal   (the Kurzgesagt neon duo)
+bg / space    #00011a  (radial glow → #171a4a center)
+
+MASCOT — suit
+suit          #330ca5  deep violet
+suit light    #8243e7  periwinkle plate panels
+suit shadow   #1c0670  deepest violet (hard-edged shadow, gloves, boots)
+
+MASCOT — channel identity (quotes the @AdamsVirtualSpace avatar)
+helmet        #f9e8d1  cream dome shell
+helmet rim    #ea4a18  thick orange-red rim ring   ★
+panel         #ea4a18  chest panel + shoulder straps
+buckle        #f8a90c  buckles + thin seam lines
+band          #07a1ef  wrist + knee rings (bounded accent only)
+visor emblem  #76b03b lime planet · #0bd7ea teal ring  (VISOR ONLY)
+
+AXES — functional signal, never decoration
+UP axis       #ffffff
+LR / yaw      #38bdf8  neon blue
+UD / pitch    #4ade80  neon green
+gravity       #e935c1  neon magenta
 caption text  #ffffff
 ```
 
+⚠️ **The mascot may only wear the channel's WARM half** — cream, orange-red,
+amber collide with no axis colour. The avatar's teal and lime are the nearest
+neighbours to yaw and pitch, so they stay confined to the small visor emblem and
+must never become large fields. An intermediate design ran `#32b1f9` strips down
+every limb; that sits essentially on top of the yaw axis and competed directly
+with the explainer's arrows. The sky-blue wrist/knee bands are a deliberate,
+bounded exception.
+
 ### Reference
-`../Assets/astronaut-mascot-styleframe.png` — proportions and palette reference. **Note:** that
-frame is faceted low-poly, from the earlier direction. Read it for *proportion and colour only*;
-the shading is superseded by this appendix.
+`../Assets/astronaut-mascot-brand-styleframe.png` — **the approved mascot.** Cream helmet with an
+orange-red rim quoting the channel avatar, dark visor carrying a ringed green planet, deep violet
+suit with periwinkle plates and thin amber seams. Slim waist, long legs, ~7.5 heads.
+
+`../Assets/astronaut-mascot-styleframe.png` — the earlier amber-visor frame, superseded. Kept for
+history; do not build against it.
 
 ---
 

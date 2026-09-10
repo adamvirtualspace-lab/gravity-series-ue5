@@ -10,8 +10,6 @@ export type Arrow3DProps = {
   radius?: number;
   /** 0–1, drives a grow-in animation by scaling along the arrow's axis. */
   grow?: number;
-  /** Emissive strength — what UnrealBloom picks up. */
-  glow?: number;
   opacity?: number;
 };
 
@@ -20,7 +18,14 @@ export type Arrow3DProps = {
  *
  * Deliberately NOT flat-shaded — see Appendix A. Uses meshBasicMaterial so the
  * colour reads as a pure flat vector fill with no lighting falloff at all, which
- * is what makes the axis colours read as signal.
+ * is what makes the axis colours read as signal. `toneMapped={false}` keeps the
+ * colour above the bloom threshold, so the glow comes from the post pass rather
+ * than from any extra geometry.
+ *
+ * NOTE: every mesh here must honour `opacity`. An earlier version carried a
+ * separate always-opaque "glow core" cylinder inside the shaft; when AxisGizmo
+ * dimmed a non-highlighted axis, the shell faded but that core did not, so the
+ * shaft stayed bright white while the head went grey.
  */
 export const Arrow3D: React.FC<Arrow3DProps> = ({
   direction,
@@ -28,7 +33,6 @@ export const Arrow3D: React.FC<Arrow3DProps> = ({
   length = 2,
   radius = 0.055,
   grow = 1,
-  glow = 1.6,
   opacity = 1,
 }) => {
   const quaternion = useMemo(() => {
@@ -64,12 +68,6 @@ export const Arrow3D: React.FC<Arrow3DProps> = ({
           opacity={opacity}
           toneMapped={false}
         />
-      </mesh>
-
-      {/* Emissive core the bloom pass latches onto. */}
-      <mesh position={[0, shaftLength / 2, 0]} scale={glow > 0 ? 1 : 0}>
-        <cylinderGeometry args={[radius * 0.5, radius * 0.5, shaftLength, 12]} />
-        <meshBasicMaterial color={color} toneMapped={false} />
       </mesh>
     </group>
   );
