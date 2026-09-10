@@ -61,10 +61,21 @@
 
 🅣 `CUSTOM GRAVITY — 100% BLUEPRINTS` → `Part 1: Character & Camera`
 
-### 🎞️ Storyboard — the cold open, shot for shot
+### 🎞️ Storyboard — the cold open beat
 
-Third-person from behind, matching the in-game camera. Style reference for the
-mograph inserts; also the shot list for the demo capture.
+> ⚠️ **These frames are NOT the footage.** The cold open on screen is a **live
+> screen recording of the finished UE5 demo** — Manny, in-engine, real gameplay
+> (that is what 🎬 **SCREEN** means above). These stylized frames exist to plan
+> that shot, not to replace it.
+
+Use them for **two** things:
+1. **Shot list while recording** — camera height, framing, and the three moments
+   to make sure the capture actually contains.
+2. **Style reference for the 🎨 MOGRAPH inserts**, which is where the violet
+   astronaut actually appears on screen.
+
+Third-person from behind, matching the in-game camera so the planned composition
+and the real capture line up.
 
 | 1 · Standing on the floor | 2 · Gravity flips | 3 · Walking on the wall |
 |:--:|:--:|:--:|
@@ -274,6 +285,11 @@ importantly, it doesn't look like Kurzgesagt. Everything is smooth-shaded.
 The mascot is **realistic adult proportions, ~7 to 7.5 heads tall**, matching the **UE5 Mannequin**
 seen in the screen capture. **Not chibi.** A 4-heads-tall mascot reads as a different character
 from the one the viewer is watching on screen, which defeats the point of the insert.
+
+**Why this matters:** the video cuts between two depictions of the *same* character —
+live UE5 capture (Manny) and stylized mograph (the violet astronaut). The viewer has to
+read them as one body doing one thing. Silhouette and proportion are what carry that;
+the colours and shading are free to differ.
 
 ### Palette tokens (maps to the rig's axis colours on a Kurzgesagt-y navy)
 ```
