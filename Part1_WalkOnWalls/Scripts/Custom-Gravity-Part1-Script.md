@@ -17,6 +17,7 @@
 - ⚠️ **MISS-RISK** — the step people skip that breaks everything
 - ✅ **CHECKPOINT** — "press play, you should see X" gate before the next chunk
 - 🎨 **MOGRAPH** — a stylized smooth-3D insert (not a screencast)
+- 🎞️ **STORYBOARD** — a reference frame in `../Assets/storyboard/`
 
 ---
 
@@ -60,6 +61,47 @@
 
 🅣 `CUSTOM GRAVITY — 100% BLUEPRINTS` → `Part 1: Character & Camera`
 
+### 🎞️ Storyboard — the cold open beat
+
+> ⚠️ **These frames are NOT the footage.** The cold open on screen is a **live
+> screen recording of the finished UE5 demo** — Manny, in-engine, real gameplay
+> (that is what 🎬 **SCREEN** means above). These stylized frames exist to plan
+> that shot, not to replace it.
+
+Use them for **two** things:
+1. **Shot list while recording** — camera height, framing, and the three moments
+   to make sure the capture actually contains.
+2. **Style reference for the 🎨 MOGRAPH inserts**, which is where the violet
+   astronaut actually appears on screen.
+
+Third-person from behind, matching the in-game camera so the planned composition
+and the real capture line up. These frames carry the **approved brand mascot**
+(cream helmet, orange-red rim, violet suit).
+
+**Frame 2 carries the rotation diagram**, and its three parts are deliberate —
+reproduce this convention in the mograph:
+
+| | |
+|---|---|
+| **Faded** dark-magenta arrow, pointing down | where gravity *was* |
+| **Dashed arc**, sweeping up and right, blunt at its lower end | the rotation itself |
+| **Bold** bright-magenta arrow, pointing at the wall | where gravity *is now* |
+
+Only the destination arrow carries an arrowhead. That is what forces the beat to
+read *down → sideways* and never the reverse.
+
+| 1 · Standing on the floor | 2 · Gravity flips | 3 · Walking on the wall |
+|:--:|:--:|:--:|
+| ![Astronaut from behind on a floor platform, magenta gravity arrow pointing down](../Assets/storyboard/01-floor-gravity-down.png) | ![Astronaut mid-rotation, magenta arrow swinging from down to sideways along a dashed arc](../Assets/storyboard/02-gravity-flips.png) | ![Astronaut upright walking away, the original floor now a vertical wall on the left](../Assets/storyboard/03-walking-on-wall.png) |
+| Gravity is `(0, 0, −1)`. Everything is ordinary — establish "normal" before breaking it. | **Press G.** Gravity rotates to `(0, −1, 0)`. Faded arrow = the old down; bold arrow = the new one; the dashed arc is the whole idea — gravity is a *vector being rotated*, not a teleport. | Gravity is `(0, −1, 0)` and the camera has rotated with him, so **he** is upright and the *world* turned. |
+
+> **Note for the edit:** frames 1 and 3 are almost the same composition — and that
+> is the point. From the character's own frame of reference nothing changed; the
+> world rotated around him. A still can't sell that, so **frame 2 does the work**:
+> hold on the rotation long enough for the arc to register, and let the camera
+> visibly travel with him rather than cutting.
+
+
 ## Why every tutorial says "use C++" · ~0:12–1:04
 🎬 **SCREEN:** UE **Custom Gravity (5.4)** docs, the C++ community tutorial (credit "Pro"), a flash of Visual Studio.
 🎙️ **VO:**
@@ -80,6 +122,8 @@
 🎙️ **VO:** "Set Gravity Direction, split the pin, Y to minus one — down now points along minus-Y. Fire it off the G key. Then set this as the Default Pawn Class. Play, press G… gravity flips. But the camera didn't."
 
 ⚠️ **MISS-RISK #1 — Default Pawn Class.** Forget this and you're still playing the old character; *nothing* here shows up. Hold on the Game Mode dropdown 2s.
+
+🎞️ **Storyboard ref:** [frame 2 — gravity flips](../Assets/storyboard/02-gravity-flips.png). Same moment, except here the camera does *not* follow — that is the bug this chunk deliberately creates.
 
 🎨 **MOGRAPH (stinger, ~8s): "Gravity is a vector, not a rotation."** A smooth-shaded astronaut on a slab; a red arrow labeled `(0, −1, 0)` swings from pointing down to pointing sideways; the slab's "down" follows, but a little camera icon stays stubbornly upright. Caption: *"Gravity moved. The camera didn't."*
 
@@ -255,21 +299,55 @@ The mascot is **realistic adult proportions, ~7 to 7.5 heads tall**, matching th
 seen in the screen capture. **Not chibi.** A 4-heads-tall mascot reads as a different character
 from the one the viewer is watching on screen, which defeats the point of the insert.
 
-### Palette tokens (maps to the rig's axis colours on a Kurzgesagt-y navy)
+**Why this matters:** the video cuts between two depictions of the *same* character —
+live UE5 capture (Manny) and stylized mograph (the violet astronaut). The viewer has to
+read them as one body doing one thing. Silhouette and proportion are what carry that;
+the colours and shading are free to differ.
+
+### Palette tokens
+
+Measured from `../Assets/astronaut-mascot-brand-styleframe.png`. Mirrored in
+`Remotion/src/theme.ts`.
+
 ```
-bg / space    #0b0d2a  (radial glow → #171a4a center)
-UP axis       #ffffff  (cyan-white glow)
-LR / yaw      #38bdf8  (neon blue)
-UD / pitch    #4ade80  (neon green)
-gravity       #e935c1  (neon magenta — reads better than red on navy)
-accents       #a855f7 purple · #22d3ee teal   (the Kurzgesagt neon duo)
+bg / space    #00011a  (radial glow → #171a4a center)
+
+MASCOT — suit
+suit          #330ca5  deep violet
+suit light    #8243e7  periwinkle plate panels
+suit shadow   #1c0670  deepest violet (hard-edged shadow, gloves, boots)
+
+MASCOT — channel identity (quotes the @AdamsVirtualSpace avatar)
+helmet        #f9e8d1  cream dome shell
+helmet rim    #ea4a18  thick orange-red rim ring   ★
+panel         #ea4a18  chest panel + shoulder straps
+buckle        #f8a90c  buckles + thin seam lines
+band          #07a1ef  wrist + knee rings (bounded accent only)
+visor emblem  #76b03b lime planet · #0bd7ea teal ring  (VISOR ONLY)
+
+AXES — functional signal, never decoration
+UP axis       #ffffff
+LR / yaw      #38bdf8  neon blue
+UD / pitch    #4ade80  neon green
+gravity       #e935c1  neon magenta
 caption text  #ffffff
 ```
 
+⚠️ **The mascot may only wear the channel's WARM half** — cream, orange-red,
+amber collide with no axis colour. The avatar's teal and lime are the nearest
+neighbours to yaw and pitch, so they stay confined to the small visor emblem and
+must never become large fields. An intermediate design ran `#32b1f9` strips down
+every limb; that sits essentially on top of the yaw axis and competed directly
+with the explainer's arrows. The sky-blue wrist/knee bands are a deliberate,
+bounded exception.
+
 ### Reference
-`../Assets/astronaut-mascot-styleframe.png` — proportions and palette reference. **Note:** that
-frame is faceted low-poly, from the earlier direction. Read it for *proportion and colour only*;
-the shading is superseded by this appendix.
+`../Assets/astronaut-mascot-brand-styleframe.png` — **the approved mascot.** Cream helmet with an
+orange-red rim quoting the channel avatar, dark visor carrying a ringed green planet, deep violet
+suit with periwinkle plates and thin amber seams. Slim waist, long legs, ~7.5 heads.
+
+`../Assets/astronaut-mascot-styleframe.png` — the earlier amber-visor frame, superseded. Kept for
+history; do not build against it.
 
 ---
 

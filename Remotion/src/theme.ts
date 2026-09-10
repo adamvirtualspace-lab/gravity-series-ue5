@@ -24,32 +24,55 @@ export const DURATION_IN_FRAMES = 900; // 30s
  */
 export const palette = {
   /**
-   * OPEN DECISION: the style frame came out near-black, Appendix A specifies
-   * navy (#0b0d2a). Near-black gives the violet more separation. Swap to
-   * `bgNavy` if the appendix wins.
+   * Near-black, matching the brand style frame. Appendix A's navy (#0b0d2a) is
+   * kept below for reference; near-black gives the saturated violet more
+   * separation, so it wins.
    */
-  bg: '#00000e',
+  bg: '#00011a',
   bgNavy: '#0b0d2a',
   bgGlow: '#171a4a',
 
-  suit: '#5b1dd9',
-  suitLight: '#9165f7',
-  suitShadow: '#3611a1',
-  suitDeep: '#1d0961',
-  helmet: '#dfd5f9',
-  visor: '#fca602',
-  strap: '#f55504',
-  buckle: '#fcc403',
-  hose: '#32b1f9',
+  // --- suit -------------------------------------------------------------
+  suit: '#330ca5',        // primary deep violet
+  suitLight: '#8243e7',   // periwinkle plate panels
+  suitMid: '#7336de',
+  suitShadow: '#1c0670',  // deepest violet — hard-edged shadow shapes
+  suitDeep: '#1c0670',    // gloves + boots share the shadow tone
+
+  // --- channel identity (quotes the @AdamsVirtualSpace avatar) -----------
+  helmet: '#f9e8d1',      // cream dome shell
+  helmetRim: '#ea4a18',   // thick orange-red rim ring   ★ channel accent
+  panel: '#ea4a18',       // chest panel + shoulder straps
+  buckle: '#f8a90c',      // buckles + thin seam lines
+  band: '#07a1ef',        // hoses, wrist + knee bands
+
+  /**
+   * VISOR EMBLEM ONLY. See the warning on `axis` below — these two are the
+   * nearest neighbours to axis.right/axis.forward and must never become large
+   * fields on the body.
+   */
+  visorGlass: '#0a1c2e',
+  visorPlanet: '#76b03b',
+  visorRing: '#0bd7ea',
 
   caption: '#ffffff',
 } as const;
 
 /**
  * Axis colours are FUNCTIONAL SIGNAL, not decoration — the viewer reads meaning
- * off them. Keep the mascot from competing with these.
+ * off them. The mascot must never compete with these.
  *
- * OPEN DECISION: the violet suit sits next to `gravity` magenta on the wheel.
+ * ⚠️ THE RULE THIS IMPOSES ON THE MASCOT: only the channel's WARM half (cream,
+ * orange-red, amber) is allowed onto the body — those collide with no axis
+ * colour. The avatar's teal and lime are the nearest neighbours to `right` and
+ * `forward`, so they stay confined to the small visor emblem. An intermediate
+ * design ran #32b1f9 emissive strips down every limb; that sits essentially on
+ * top of `axis.right` and competed directly with the explainer's arrows.
+ *
+ * `palette.band` (#07a1ef) is a deliberate, bounded exception: small ring
+ * accents at wrists and knees only, never a running length.
+ *
+ * STILL OPEN: the violet suit sits next to `gravity` magenta on the wheel.
  * Verify in the first animated test that the gravity arrow still reads.
  */
 export const axis = {

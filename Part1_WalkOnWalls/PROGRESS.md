@@ -17,6 +17,7 @@ re-deriving decisions. Read it top to bottom before touching anything.
 | Storyboard frames | ✅ 3× 16:9 third-person beats in `Assets/storyboard/` |
 | `Remotion/` project | ✅ Scaffolded, typechecks, **renders real frames** |
 | Mograph beats 1–4 | ✅ Animated · beats 5–9 static states, TODO |
+| Brand mascot | ✅ Ported into `theme.ts` + `Astronaut.tsx`; storyboards regenerated |
 | Part 2 / Part 3 | ⬜ Not started |
 
 ---
@@ -41,6 +42,18 @@ These were each decided deliberately. The reasoning matters more than the conclu
 
 3. **Violet suit, not white.** Once gradients are gone, a white suit reads empty.
    Large saturated colour blocks are where the Kurzgesagt charm actually lives.
+
+4. **The mascot carries channel identity.** The helmet quotes the
+   `@AdamsVirtualSpace` avatar — cream dome, thick orange-red rim, dark visor
+   with a small ringed green planet. Reference:
+   `Assets/astronaut-mascot-brand-styleframe.png`.
+
+5. **Only the channel's WARM half goes on the body.** Cream, orange-red and
+   amber collide with no axis colour. Teal and lime are the nearest neighbours
+   to `axis.right` and `axis.forward` — functional signal — so they stay inside
+   the visor emblem and must never become large fields. An intermediate design
+   ran `#32b1f9` strips down every limb and competed directly with the
+   explainer's arrows. Sky-blue wrist/knee rings are a bounded exception.
 
 ---
 
@@ -74,11 +87,11 @@ gravity vector      #e935c1   hot magenta
 
 ## ⚠️ Two OPEN decisions (blocking `theme.ts`)
 
-1. **Background: near-black `#00000e` or navy `#0b0d2a`?**
-   The style frame came out near-black; Appendix A specifies navy. They disagree.
-   Near-black gives the violet better separation. **Not yet decided.**
+1. ~~**Background: near-black or navy?**~~ **SETTLED — near-black `#00011a`.**
+   Both brand frames landed there and it gives the violet more separation.
+   `palette.bgNavy` is kept in `theme.ts` for reference only.
 
-2. **Violet suit vs magenta gravity arrow.**
+2. **Violet suit vs magenta gravity arrow.** (still open)
    The suit occupies violet; magenta is reserved for the gravity axis. They are
    neighbours on the colour wheel. The suit was kept deliberately deep
    (`#5b1dd9`) so hot magenta still pops — **but this must be verified in the
@@ -206,10 +219,12 @@ reachable — use that to pull generated images into the repo.
 
 ## Next steps
 
-1. **Sculpt `Astronaut.tsx`.** The current mesh is a rough blockout — limbs read
-   thin and the proportions do not yet match the ~7.5-head style frame. Compare
-   side by side against `Assets/astronaut-mascot-styleframe.png`.
-2. Resolve the two open colour decisions above (background, and violet-vs-magenta).
+1. **Refine `Astronaut.tsx` further.** It now carries the brand design and the
+   right proportions, but it is still primitive-assembled — the torso reads
+   bulky against the slim-waist reference, and the plate panels are floating
+   capsules rather than shaped shells.
+2. Resolve the remaining colour decision (violet suit vs magenta gravity arrow)
+   in the first animated test. **Background is settled: near-black `#00011a`.**
 3. Animate beats 5–9.
 4. Time captions to the VO.
 5. Wire Parts 2/3 in `Root.tsx` via the `mode` prop.
